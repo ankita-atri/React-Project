@@ -20,7 +20,18 @@ describe("Add an Itinerary", () => {
       cy.contains("Submit").click();
 
       cy.get("tbody tr").should("have.length", count + 1);
-      // verify the added row info
+      // verifying the added row info
+      cy.get("tbody tr")
+        .last()
+        .within(() => {
+          cy.contains("Test-Trip").should("exist");
+          cy.contains("London").should("exist");
+          cy.contains("2024-12-01").should("exist");
+          cy.contains("2024-12-31").should("exist");
+          cy.contains("Planned").should("exist");
+          cy.contains("Flight").should("exist");
+          cy.contains("2400").should("exist");
+        });
     });
   });
 });

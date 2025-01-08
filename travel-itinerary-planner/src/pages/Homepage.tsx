@@ -15,17 +15,36 @@ const HomePage = ({ deleteItinerary, itineraries }: ItenarariesProps) => {
   if (itineraries.length === 0) {
     return (
       <>
-        <EmptyItineraray />
-        <Button variant="light" onClick={() => navigate("/add-itinerary")}>
-          Add Itinerary
-        </Button>
+        <div
+          className="container mt-5"
+          style={{ backgroundColor: "rgba(232, 220, 202, 0.2)" }}>
+          <h5 className="text-center">
+            <b>
+              Plan your perfect trip with the all-in-one travel itinerary
+              planner!
+            </b>
+          </h5>
+          <EmptyItineraray />
+          <Button variant="light" onClick={() => navigate("/add-itinerary")}>
+            <FcPlus style={{ marginRight: "5px", paddingBottom: "2px" }} />
+            Itinerary
+          </Button>
+        </div>
       </>
     );
   }
   return (
     <>
-      <div className="container mt-5">
-        <h3 className="text-center page-heading"> Itinerary List</h3>
+      <div
+        className="container mt-5"
+        style={{ backgroundColor: "rgba(232, 220, 202, 0.2)" }}>
+        <h5 className="text-center">
+          <b>
+            Plan your perfect trip with the all-in-one travel itinerary planner!
+          </b>
+        </h5>
+        <h3 className="text-center page-heading">Itinerary List</h3>
+
         <Table deleteItinerary={deleteItinerary} data={itineraries} />
         <Button variant="light" onClick={() => navigate("/add-itinerary")}>
           <FcPlus style={{ marginRight: "5px", paddingBottom: "2px" }} />

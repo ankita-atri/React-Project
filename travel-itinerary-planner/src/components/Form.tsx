@@ -2,7 +2,8 @@ import { useForm } from "react-hook-form";
 import { Itinerary } from "../dto/itineary";
 import { useEffect } from "react";
 
-import { Col, Form, Row } from "react-bootstrap";
+import { Button, Col, Form, Row } from "react-bootstrap";
+import { useNavigate } from "react-router";
 
 interface FormProps {
   defaultValues: Omit<Itinerary, "id">;
@@ -25,14 +26,7 @@ const ItineraryForm = ({ defaultValues, onSubmit }: FormProps) => {
 
   const startDate = watch("startDate");
 
-  //   const navigate = useNavigate();
-
-  //   const onSubmit = (data: Omit<Itinerary, "id">) => {
-  //     console.log("New Itinerary:", data);
-  //     addItinerary(data);
-
-  //     navigate("/");
-  //   };
+  const navigate = useNavigate();
   useEffect(() => {
     reset(defaultValues);
   }, [defaultValues, reset]);
@@ -111,7 +105,8 @@ const ItineraryForm = ({ defaultValues, onSubmit }: FormProps) => {
             <Form.Select {...register("modeOfTransport")}>
               <option value="Flight">Flight</option>
               <option value="Train">Train</option>
-              <option value="Others">Others</option>
+              <option value="Car">Car</option>
+              <option value="Bus">Bus</option>
             </Form.Select>
           </Col>
         </Form.Group>
@@ -131,6 +126,9 @@ const ItineraryForm = ({ defaultValues, onSubmit }: FormProps) => {
         <button type="submit" className="btn btn-primary">
           Submit
         </button>
+        <Button variant="danger" onClick={() => navigate("/")}>
+          Cancel
+        </Button>
       </Form>
     </>
   );

@@ -1,9 +1,17 @@
 import { useNavigate, useParams } from "react-router";
-import { IoMdArrowRoundBack } from "react-icons/io";
+import {
+  IoIosInformationCircleOutline,
+  IoMdArrowRoundBack,
+} from "react-icons/io";
 import { Itinerary } from "../dto/itineary";
 import { Button, Card, Col, Row } from "react-bootstrap";
 import { FaCalendarAlt, FaDollarSign, FaMapMarkedAlt } from "react-icons/fa";
+import { MdOutlineEmojiTransportation } from "react-icons/md";
+import { Pie } from "react-chartjs-2";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 // import travelPic from "../img/Designer.png";
+
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 type ViewItineraryProps = {
   itineraries: Itinerary[];
@@ -14,6 +22,31 @@ const ViewItinerary = ({ itineraries }: ViewItineraryProps) => {
   const itinerary = itineraries.find(
     (itinerary) => itinerary.id === parseInt(id || "", 10)
   );
+
+  const statusCount = itineraries.reduce(
+    (acc, item) => {
+      acc[item.status] = (acc[item.status] || 0) + 1;
+      return acc;
+    },
+    { Planned: 0, "In-Progress": 0, Completed: 0 }
+  );
+
+  const chartData = {
+    labels: ["Planned", "In-progress", "Completed"],
+    datasets: [
+      {
+        data: [
+          statusCount.Planned || 0,
+          statusCount["In-Progress"] || 0,
+          statusCount.Completed || 0,
+        ],
+        backgroundColor: ["#007bff", "#ffc107", "#28a745"],
+        borderColor: ["#ffffff", "#ffffff", "#fvfffff"],
+        borderWidth: 1,
+      },
+    ],
+  };
+
   const navigate = useNavigate();
   if (!itinerary) {
     return <p className="text-danger">Itinerary not found.</p>;
@@ -68,10 +101,15 @@ const ViewItinerary = ({ itineraries }: ViewItineraryProps) => {
                 {itinerary.endDate}
               </div>
               <div className="mb-3 d-flex align-itens-center">
+                <IoIosInformationCircleOutline className="me-3 text-warning" />
                 <strong>Status: </strong>
                 {itinerary.status}
               </div>
               <div className="mb-3 d-flex align-itens-center">
+                <MdOutlineEmojiTransportation
+                  className="me-3 text-warning"
+                  size={20}
+                />
                 <strong>Mode of Tranport: </strong>
                 {itinerary.modeOfTransport}
               </div>
@@ -84,6 +122,12 @@ const ViewItinerary = ({ itineraries }: ViewItineraryProps) => {
           </Card.Body>
           {/* <Button variant="primary">Go somewhere</Button> */}
         </Card>
+      </div>
+      <h3 className="text-center page-heading">Itinerary Status Overview</h3>
+      <div
+        className="chart-container"
+        style={{ maxWidth: "350px", margin: "0 auto" }}>
+        <Pie data={chartData} />
       </div>
     </>
   );

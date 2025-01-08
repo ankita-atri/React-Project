@@ -8,7 +8,10 @@ import { Itinerary } from "../dto/itineary";
 import { useNavigate } from "react-router";
 import { Badge, Button, Modal } from "react-bootstrap";
 import { useState } from "react";
-
+import flight from "../img/flight.png";
+import train from "../img/train.png";
+import car from "../img/car.png";
+import bus from "../img/bus.png";
 interface TableProps {
   data: Itinerary[];
   deleteItinerary: (id: number) => void;
@@ -50,6 +53,21 @@ const Table = ({ deleteItinerary, data }: TableProps) => {
     }
   };
 
+  const getTransportClass = (modeOfTransport: string) => {
+    switch (modeOfTransport) {
+      case "Flight":
+        return flight;
+      case "Train":
+        return train;
+      case "Car":
+        return car;
+      case "Bus":
+        return bus;
+      default:
+        return "default";
+    }
+  };
+
   const columns = [
     columnHelper.accessor("id", {
       header: "ID",
@@ -82,7 +100,17 @@ const Table = ({ deleteItinerary, data }: TableProps) => {
     }),
     columnHelper.accessor("modeOfTransport", {
       header: "Mode Of Transport",
-      cell: (info) => info.getValue(),
+      cell: (info) => (
+        <div>
+          <img
+            src={getTransportClass(info.getValue<string>())}
+            width="30"
+            height="30"
+            className="d-inline-block align-top"
+            style={{ paddingBottom: "5px" }}></img>
+          {info.getValue()}
+        </div>
+      ),
     }),
     columnHelper.accessor("budget", {
       header: "Budget ($)",

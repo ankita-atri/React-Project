@@ -1,0 +1,43 @@
+const itinerary = [
+  {
+    id: 1,
+    name: "Thanksgiving'24",
+    destination: "Los Angeles",
+    startDate: "11-26-2024",
+    endDate: "11-29-2024",
+    status: "Completed",
+    modeOfTransport: "Car",
+    budget: 3400,
+  },
+  {
+    id: 2,
+    name: "Trip to Paris",
+    destination: "Paris",
+    startDate: "12-20-2024",
+    endDate: "1-29-2025",
+    status: "In-Progress",
+    modeOfTransport: "Flight",
+    budget: 1200,
+  },
+  {
+    id: 3,
+    name: "Summer Trip",
+    destination: "Miami",
+    startDate: "06-20-2025",
+    endDate: "07-29-2025",
+    status: "Planned",
+    modeOfTransport: "Flight",
+    budget: 5800,
+  },
+  {
+    id: 4,
+    name: "Spring Break",
+    destination: "Dallas",
+    startDate: "03-05-2025",
+    endDate: "03-15-2025",
+    status: "Planned",
+    modeOfTransport: "Flight",
+    budget: 5800,
+  },
+];
+export default itinerary;

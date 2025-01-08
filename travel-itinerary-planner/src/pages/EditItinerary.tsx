@@ -44,7 +44,9 @@ const EditItinerary = ({ itineraries, editItinerary }: EditItineraryProps) => {
     return d.toISOString().split("T")[0];
   };
   return (
-    <div className="container mt-5">
+    <div
+      className="container mt-5"
+      style={{ backgroundColor: "rgba(232, 220, 202, 0.2)" }}>
       <h3 className="text-center page-heading">Edit your existing Itinerary</h3>
       <ItineraryForm
         defaultValues={{
